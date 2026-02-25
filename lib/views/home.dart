@@ -17,7 +17,6 @@ class _HomeState extends State<Home> {
   List _listSiswa = [];
   bool _isLoading = true;
 
-  // 1. FUNGSI AMBIL DATA DARI SERVER
   Future _getSiswa() async {
     setState(() => _isLoading = true);
     try {
@@ -34,7 +33,6 @@ class _HomeState extends State<Home> {
     }
   }
 
-  // 2. FUNGSI HAPUS DATA
   Future _hapusData(String id) async {
     try {
       final response = await http.post(
@@ -42,7 +40,7 @@ class _HomeState extends State<Home> {
         body: {"id": id},
       );
       if (response.statusCode == 200) {
-        _getSiswa(); // Refresh data setelah hapus
+        _getSiswa(); 
         if (mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(content: Text("Data berhasil dihapus"), backgroundColor: Colors.red),
@@ -86,7 +84,6 @@ class _HomeState extends State<Home> {
                           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
                           child: ListTile(
                             onTap: () {
-                              // Klik pada baris untuk lihat detail
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(builder: (context) => DetailSiswa(data: siswa)),
@@ -105,7 +102,6 @@ class _HomeState extends State<Home> {
                             trailing: Row(
                               mainAxisSize: MainAxisSize.min,
                               children: [
-                                // Tombol Edit
                                 IconButton(
                                   icon: const Icon(Icons.edit, color: Colors.orange),
                                   onPressed: () {
@@ -115,7 +111,6 @@ class _HomeState extends State<Home> {
                                     ).then((value) => _getSiswa());
                                   },
                                 ),
-                                // Tombol Hapus
                                 IconButton(
                                   icon: const Icon(Icons.delete, color: Colors.red),
                                   onPressed: () => _showKonfirmasiHapus(siswa['id'].toString()),
@@ -141,7 +136,6 @@ class _HomeState extends State<Home> {
     );
   }
 
-  // Dialog Konfirmasi sebelum benar-benar menghapus
   void _showKonfirmasiHapus(String id) {
     showDialog(
       context: context,
