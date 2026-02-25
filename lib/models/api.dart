@@ -4,5 +4,4 @@ class BaseUrl {
   static String editSiswa    = "http://localhost/biodata/update.php";
   static String hapusSiswa   = "http://localhost/biodata/delete.php";
 
-  static String urlFoto      = "http://localhost/biodata/upload/";
 }
